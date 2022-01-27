@@ -1035,6 +1035,8 @@ MonoBehaviour:
   DraggableObjectPrefab: {fileID: 6012301240760876610, guid: e0ca2dcbb421a40f6b607a7b1b392196,
     type: 3}
   MainGrid: {fileID: 744121703}
+  GridPattern: {fileID: 11400000, guid: b826da392cbe0884e97c3a857abe66c3, type: 2}
+  _difficulty: 3
 --- !u!4 &364787908
 Transform:
   m_ObjectHideFlags: 0

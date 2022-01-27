@@ -12,25 +12,15 @@ public static class ItemUtils
 	public static void InitializeMap()
 	{
 		var nodes = Resources.LoadAll<NodeContainer>("CraftingObjects");
+		var recipeNodes = Game.Instance.GridPattern.recipeRange;
+		if (ItemsMap.Count != 0 || RecipeMap.Count != 0)
+		{
+			return;
+		}
 		foreach (var node in nodes)
 		{
 			ItemsMap.Add(node.MainNodeData.NodeGUID, node);
 			
-			if (node.IsRawMaterial())
-				continue;
-
-			var ingredients = node.GetRecipe();
-			
-			if (RecipeMap.ContainsKey(node.MainNodeData.NodeGUID) == false)
-			{
-				var dt = new HashSet<NodeData>(ingredients.Keys);
-				RecipeMap.Add(node.MainNodeData.NodeGUID, dt);
-			}
-			else
-			{
-				Debug.LogError($"Tried to add recipe for '{node.MainNodeData.Sprite.name}' more than once!");
-			}
-				
 			// foreach (var recipe in node.GetRecipe())
 			// {
 			// 	string recipId = recipe.Key.NodeGUID;
@@ -46,6 +36,24 @@ public static class ItemUtils
 			// 	}
 			// }
 			//
+		}
+
+		foreach (var node in recipeNodes)
+		{
+			if (node.IsRawMaterial())
+				continue;
+			
+			var ingredients = node.GetRecipe();
+
+			if (RecipeMap.ContainsKey(node.MainNodeData.NodeGUID) == false)
+			{
+				var dt = new HashSet<NodeData>(ingredients.Keys);
+				RecipeMap.Add(node.MainNodeData.NodeGUID, dt);
+			}
+			else
+			{
+				Debug.LogError($"Tried to add recipe for '{node.MainNodeData.Sprite.name}' more than once!");
+			}
 		}
 
 		Debug.Log($"recipes: {RecipeMap.Count}");
@@ -68,7 +76,6 @@ public static class ItemUtils
 
 	public static NodeContainer FindBestRecipe(NodeContainer[] items)
 	{
-		
 
 		foreach (var entries in RecipeMap)
 		{
