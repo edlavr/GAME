@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,7 +11,7 @@ public class VolumeSlider : MonoBehaviour
     [SerializeField] private Text text;
     [SerializeField] private AudioSource audioSource;
 
-    private static VolumeSlider Instance { get; set; }
+    public static VolumeSlider Instance { get; private set; }
 
     private void Awake()
     {
@@ -22,8 +23,8 @@ public class VolumeSlider : MonoBehaviour
         }
         
         DontDestroyOnLoad(this);
-        slider.value = PlayerPrefs.GetFloat("volume", 0.5f);
-        //SliderValueChanged(slider.value);
+        slider.value = PlayerPrefs.GetFloat("volume", 1f);
+        SliderValueChanged(slider.value);
     }
 
     public void SliderValueChanged(float value)
