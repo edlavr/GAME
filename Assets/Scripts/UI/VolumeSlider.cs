@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class VolumeSlider : MonoBehaviour
 {
-    [SerializeField] private Slider slider;
-    [SerializeField] private Text text;
+    public Slider slider;
+    public Text text;
     [SerializeField] private AudioSource audioSource;
 
     public static VolumeSlider Instance { get; private set; }
